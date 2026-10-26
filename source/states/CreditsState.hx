@@ -1,5 +1,6 @@
 package states;
 
+import lime.utils.Assets;
 import objects.AttachedSprite;
 
 class CreditsState extends MusicBeatState
@@ -259,9 +260,24 @@ class CreditsState extends MusicBeatState
 		var translatedCredits:String = Paths.mods(folder + '/data/credits-${ClientPrefs.data.language}.txt');
 		#end
 
-		if (#if TRANSLATIONS_ALLOWED #if sys (FileSystem.exists(translatedCredits) && (creditsFile = translatedCredits) == translatedCredits) || #end #end #if sys FileSystem.exists(creditsFile) #else Assets.exists(creditsFile, TEXT) #end)
+		var creditsExists:Bool = false;
+		#if TRANSLATIONS_ALLOWED
+		#if sys
+		if (FileSystem.exists(translatedCredits))
 		{
-			var firstarray:Array<String> = #if sys File.getContent(creditsFile) #else Assets.getText(creditsFile) #end .split('\n');
+			creditsFile = translatedCredits;
+			creditsExists = true;
+		}
+		#end
+		#end
+		#if sys
+		if (!creditsExists && FileSystem.exists(creditsFile)) creditsExists = true;
+		#else
+		if (Assets.exists(creditsFile, TEXT)) creditsExists = true;
+		#end
+		if (creditsExists)
+		{
+			var firstarray:Array<String> = (#if sys File.getContent(creditsFile) #else Assets.getText(creditsFile) #end).split('\n');
 			for(i in firstarray)
 			{
 				var arr:Array<String> = i.replace('\\n', '\n').split("::");

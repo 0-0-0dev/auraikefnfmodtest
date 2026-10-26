@@ -187,6 +187,7 @@ class LuaUtils
 		FlxG.log.warn('getModSetting: "$saveTag" could not be found inside $modName\'s settings!');
 		#end
 		#end
+		#end
 		return null;
 	}
 	

@@ -8,6 +8,7 @@ import haxe.Json;
 #if LUA_ALLOWED
 import psychlua.FunkinLua;
 #end
+import lime.utils.Assets;
 
 typedef Achievement =
 {
@@ -228,104 +229,62 @@ class Achievements {
 		Mods.currentModDirectory = modLoaded;
 	}
 
-	inline static function loadAchievementJson(path:String, addMods:Bool = true)
+	static function loadAchievementJson(path:String, addMods:Bool = true)
 	{
 		var retVal:Array<Dynamic> = null;
-		#if sys
-		if(FileSystem.exists(path)) {
-			try {
+		try {
+			#if sys
+			if(FileSystem.exists(path)) {
 				var rawJson:String = File.getContent(path).trim();
-				if(rawJson != null && rawJson.length > 0) retVal = tjson.TJSON.parse(rawJson); //Json.parse('{"achievements": $rawJson}').achievements;
-				
-				if(addMods && retVal != null)
-				{
-					for (i in 0...retVal.length)
-					{
-						var achieve:Dynamic = retVal[i];
-						if(achieve == null)
-						{
-							var errorTitle = 'Mod name: ' + Mods.currentModDirectory != null ? Mods.currentModDirectory : "None";
-							var errorMsg = 'Achievement #${i+1} is invalid.';
-							#if windows
-							lime.app.Application.current.window.alert(errorMsg, errorTitle);
-							#end
-							trace('$errorTitle - $errorMsg');
-							continue;
-						}
-					}
-				}
-			} catch(e:Dynamic) {
-				trace('Error in achievement file $path: $e');
+				if(rawJson != null && rawJson.length > 0) retVal = tjson.TJSON.parse(rawJson);
 			}
-		}
-		#else
-		if(Assets.exists(path)) {
-			try {
+			#else
+			if(Assets.exists(path)) {
 				var rawJson:String = Assets.getText(path).trim();
 				if(rawJson != null && rawJson.length > 0) retVal = tjson.TJSON.parse(rawJson);
-				if(addMods && retVal != null)
-				{
-					for (i in 0...retVal.length)
-					{
-						var achieve:Dynamic = retVal[i];
-						if(achieve == null)
-						{
-							var errorTitle = 'Mod name: ' + Mods.currentModDirectory != null ? Mods.currentModDirectory : "None";
-							var errorMsg = 'Achievement #${i+1} is invalid.';
-							#if windows
-							lime.app.Application.current.window.alert(errorMsg, errorTitle);
-							#end
-							trace('$errorTitle - $errorMsg');
-							continue;
-						}
-					}
-				}
-			} catch(e:Dynamic) {
-				trace('Error in achievement file $path: $e');
 			}
+			#end
+		} catch(e:Dynamic) {
+			var errorTitle = 'Mod name: ' + (Mods.currentModDirectory != null ? Mods.currentModDirectory : 'None');
+			var errorMsg = 'Error loading achievements.json: $e';
+			#if windows
+			lime.app.Application.current.window.alert(errorMsg, errorTitle);
+			#end
+			trace('$errorTitle - $errorMsg');
+			return retVal;
 		}
-		#end
-				
-				if(addMods && retVal != null)
+
+		if(addMods && retVal != null)
+		{
+			for (i in 0...retVal.length)
+			{
+				var achieve:Dynamic = retVal[i];
+				if(achieve == null)
 				{
-					for (i in 0...retVal.length)
-					{
-						var achieve:Dynamic = retVal[i];
-						if(achieve == null)
-						{
-							var errorTitle = 'Mod name: ' + Mods.currentModDirectory != null ? Mods.currentModDirectory : "None";
-							var errorMsg = 'Achievement #${i+1} is invalid.';
-							#if windows
-							lime.app.Application.current.window.alert(errorMsg, errorTitle);
-							#end
-							trace('$errorTitle - $errorMsg');
-							continue;
-						}
-
-						var key:String = achieve.save;
-						if(key == null || key.trim().length < 1)
-						{
-							var errorTitle = 'Error on Achievement: ' + (achieve.name != null ? achieve.name : achieve.save);
-							var errorMsg = 'Missing valid "save" value.';
-							#if windows
-							lime.app.Application.current.window.alert(errorMsg, errorTitle);
-							#end
-							trace('$errorTitle - $errorMsg');
-							continue;
-						}
-						key = key.trim();
-						if(achievements.exists(key)) continue;
-
-						createAchievement(key, achieve, Mods.currentModDirectory);
-					}
+					var errorTitle = 'Mod name: ' + (Mods.currentModDirectory != null ? Mods.currentModDirectory : 'None');
+					var errorMsg = 'Achievement #${i+1} is invalid.';
+					#if windows
+					lime.app.Application.current.window.alert(errorMsg, errorTitle);
+					#end
+					trace('$errorTitle - $errorMsg');
+					continue;
 				}
-			} catch(e:Dynamic) {
-				var errorTitle = 'Mod name: ' + Mods.currentModDirectory != null ? Mods.currentModDirectory : "None";
-				var errorMsg = 'Error loading achievements.json: $e';
-				#if windows
-				lime.app.Application.current.window.alert(errorMsg, errorTitle);
-				#end
-				trace('$errorTitle - $errorMsg');
+
+				var key:String = achieve.save;
+				if(key == null || key.trim().length < 1)
+				{
+					var errorTitle = 'Error on Achievement: ' + (achieve.name != null ? achieve.name : achieve.save);
+					var errorMsg = 'Missing valid "save" value.';
+					#if windows
+					lime.app.Application.current.window.alert(errorMsg, errorTitle);
+					#end
+					trace('$errorTitle - $errorMsg');
+					continue;
+				}
+				key = key.trim();
+				if(achievements.exists(key)) continue;
+
+				createAchievement(key, achieve, Mods.currentModDirectory);
 			}
 		}
 		return retVal;

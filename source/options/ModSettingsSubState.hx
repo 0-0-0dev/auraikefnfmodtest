@@ -5,6 +5,7 @@ import flixel.input.gamepad.FlxGamepadInputID;
 
 import objects.Character;
 
+import options.Option as ModOption;
 import options.Option.OptionType;
 
 class ModSettingsSubState extends BaseOptionsMenu
@@ -32,11 +33,17 @@ class ModSettingsSubState extends BaseOptionsMenu
 		{
 			for (option in options)
 			{
-				var newOption = new Option(
+				var optionType:OptionType = switch (Type.typeof(option.type))
+				{
+					case TEnum(_): cast option.type;
+					default: convertType(Std.string(option.type));
+				};
+
+				var newOption:ModOption = new ModOption(
 					option.name != null ? option.name : option.save,
 					option.description != null ? option.description : 'No description provided.',
 					option.save,
-					convertType(option.type),
+					optionType,
 					option.options,
 					option.translation_key
 				);

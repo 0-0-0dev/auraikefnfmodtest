@@ -63,6 +63,19 @@ class Mods
 			}
 		}
 		#end
+		#if html5
+		try {
+			for (asset in OpenFlAssets.list())
+			{
+				if (!asset.startsWith('mods/')) continue;
+				var parts:Array<String> = asset.split('/');
+				if (parts.length < 2) continue;
+				var folder:String = parts[1];
+				if (folder.trim().length > 0 && !ignoreModFolders.contains(folder.toLowerCase()) && !list.contains(folder))
+					list.push(folder);
+			}
+		} catch(e:Dynamic) { }
+		#end
 		#end
 		return list;
 	}
@@ -178,18 +191,34 @@ class Mods
 	}
 
 	public static var updatedOnState:Bool = false;
-	inline public static function parseList():ModsList {
+	public static function parseList():ModsList {
 		if(!updatedOnState) updateModList();
 		var list:ModsList = {enabled: [], disabled: [], all: []};
 
 		#if MODS_ALLOWED
 		try {
-			for (mod in CoolUtil.coolTextFile('modsList.txt'))
+			var modEntries:Array<String> = CoolUtil.coolTextFile('modsList.txt');
+			if (modEntries.length == 0)
 			{
-				//trace('Mod: $mod');
+				for (folder in getModDirectories())
+				{
+					list.all.push(folder);
+					list.enabled.push(folder);
+				}
+				return list;
+			}
+
+			for (mod in modEntries)
+			{
 				if(mod.trim().length < 1) continue;
 
 				var dat = mod.split("|");
+				if(dat.length < 2) {
+					list.all.push(dat[0]);
+					list.enabled.push(dat[0]);
+					continue;
+				}
+
 				list.all.push(dat[0]);
 				if (dat[1] == "1")
 					list.enabled.push(dat[0]);
@@ -199,6 +228,15 @@ class Mods
 		} catch(e) {
 			trace(e);
 		}
+
+		if (list.all.length == 0)
+		{
+			for (folder in getModDirectories())
+			{
+				list.all.push(folder);
+				list.enabled.push(folder);
+			}
+		}
 		#end
 		return list;
 	}
@@ -206,10 +244,10 @@ class Mods
 	private static function updateModList()
 	{
 		#if MODS_ALLOWED
-		#if sys
-		// Find all that are already ordered
 		var list:Array<Array<Dynamic>> = [];
 		var added:Array<String> = [];
+
+		#if sys
 		try {
 			for (mod in CoolUtil.coolTextFile('modsList.txt'))
 			{
@@ -224,20 +262,18 @@ class Mods
 		} catch(e) {
 			trace(e);
 		}
+		#end
 		
-		// Scan for folders that aren't on modsList.txt yet
 		for (folder in getModDirectories())
 		{
-			if(folder.trim().length > 0 && FileSystem.exists(Paths.mods(folder)) && FileSystem.isDirectory(Paths.mods(folder)) &&
-			!ignoreModFolders.contains(folder.toLowerCase()) && !added.contains(folder))
+			if(folder.trim().length > 0 && !ignoreModFolders.contains(folder.toLowerCase()) && !added.contains(folder))
 			{
 				added.push(folder);
-				list.push([folder, true]); //i like it false by default. -bb //Well, i like it True! -Shadow Mario (2022)
-				//Shadow Mario (2023): What the fuck was bb thinking
+				list.push([folder, true]);
 			}
 		}
 
-		// Now save file
+		#if sys
 		var fileStr:String = '';
 		for (values in list)
 		{
@@ -246,9 +282,8 @@ class Mods
 		}
 
 		File.saveContent('modsList.txt', fileStr);
-		updatedOnState = true;
-		//trace('Saved modsList.txt');
 		#end
+		updatedOnState = true;
 		#end
 	}
 
