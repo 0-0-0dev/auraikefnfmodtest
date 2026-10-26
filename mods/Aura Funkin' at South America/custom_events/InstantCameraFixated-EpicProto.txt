@@ -1,0 +1,9 @@
+Este evento hace que la camara se mueva instantaneamente.
+Creditos a LazyWorkTeam y EpicProto.
+
+Aca instrucciones McCreey:
+Value 1: Opcional (Valor de velocidad, solo lo usalo puedes dejar vacio)
+Value 2: 
+0 = Default/Desactivado           
+1 = Activar (INSTANTANEO)
+2 = Activar (Velocidad customizable con Value 1)

@@ -1,3 +1,4 @@
+#if !html5
 package states.editors.content;
 
 import flixel.util.FlxDestroyUtil;
@@ -125,3 +126,4 @@ class BasePrompt extends MusicBeatSubstate
 		super.destroy();
 	}
 }
+#endif

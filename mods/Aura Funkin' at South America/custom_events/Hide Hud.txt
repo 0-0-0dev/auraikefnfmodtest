@@ -1,0 +1,6 @@
+Esconde el HUD de manera suave y sencilla, desaparecera la Barra de Salud, Las Flechas, y el resto
+de la interfaz.
+
+Value 1: "1" para esconder el HUD (Suavemente) | "2" para regresar el HUD (Gradualmente)
+
+Value 2: (Nada)

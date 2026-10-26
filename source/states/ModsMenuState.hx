@@ -787,7 +787,9 @@ class ModsMenuState extends MusicBeatState
 		}
 
 		var path:String = 'modsList.txt';
+		#if sys
 		File.saveContent(path, fileStr);
+		#end
 		Mods.parseList();
 		Mods.loadTopMod();
 	}
@@ -818,11 +820,11 @@ class ModItem extends FlxSpriteGroup
 		pack = Mods.getPack(folder);
 
 		var path:String = Paths.mods('$folder/data/settings.json');
+		#if sys
 		if(FileSystem.exists(path))
 		{
 			try
 			{
-				//trace('trying to load settings: $folder');
 				settings = tjson.TJSON.parse(File.getContent(path));
 			}
 			catch(e:Dynamic)
@@ -835,6 +837,7 @@ class ModItem extends FlxSpriteGroup
 				trace('$errorTitle - $errorMsg');
 			}
 		}
+		#end
 
 		selectBg = new FlxSprite().makeGraphic(1, 1, FlxColor.WHITE);
 		selectBg.alpha = 0.8;
@@ -853,22 +856,38 @@ class ModItem extends FlxSpriteGroup
 
 		var isPixel = false;
 		var file:String = Paths.mods('$folder/pack.png');
+		#if sys
 		if (!FileSystem.exists(file))
 		{
 			file = Paths.mods('$folder/pack-pixel.png');
 			isPixel = true;
 		}
+		#else
+		if (!Assets.exists(file, IMAGE))
+		{
+			file = Paths.mods('$folder/pack-pixel.png');
+			isPixel = true;
+		}
+		#end
 		
 		var bmp:BitmapData = null;
+		#if sys
 		if (FileSystem.exists(file)) bmp = BitmapData.fromFile(file);
 		else isPixel = false;
 
 		if(FileSystem.exists(file))
 		{
 			icon.loadGraphic(Paths.cacheBitmap(file, bmp), true, 150, 150);
-			if(isPixel) icon.antialiasing = false;
 		}
 		else icon.loadGraphic(Paths.image('unknownMod'), true, 150, 150);
+		#else
+		if(Assets.exists(file, IMAGE))
+		{
+			icon.loadGraphic(Paths.image('unknownMod'), true, 150, 150);
+		}
+		else icon.loadGraphic(Paths.image('unknownMod'), true, 150, 150);
+		#end
+		if(isPixel) icon.antialiasing = false;
 		icon.scale.set(0.5, 0.5);
 		icon.updateHitbox();
 		

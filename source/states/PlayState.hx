@@ -23,8 +23,10 @@ import cutscenes.DialogueBoxPsych;
 
 import states.StoryMenuState;
 import states.FreeplayState;
+#if !html5
 import states.editors.ChartingState;
 import states.editors.CharacterEditorState;
+#end
 
 import substates.PauseSubState;
 import substates.GameOverSubstate;
@@ -1956,7 +1958,9 @@ class PlayState extends MusicBeatState
 		DiscordClient.resetClientID();
 		#end
 
+		#if !html5
 		MusicBeatState.switchState(new ChartingState());
+		#end
 	}
 
 	function openCharacterEditor()
@@ -1974,7 +1978,9 @@ class PlayState extends MusicBeatState
 			opponentVocals.pause();
 
 		#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
+		#if !html5
 		MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
+		#end
 	}
 
 	public var isDead:Bool = false; //Don't mess with this on Lua!!!

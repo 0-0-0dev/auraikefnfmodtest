@@ -1,0 +1,9 @@
+Value 1 = Window title
+Value 2 = Window text
+
+Window may appear later than event
+
+Warning! Only tested on Windows!
+
+Use on other versions of Psych or other OS may
+cause unexpected results or errors!

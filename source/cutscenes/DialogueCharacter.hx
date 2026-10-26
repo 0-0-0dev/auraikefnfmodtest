@@ -56,6 +56,7 @@ class DialogueCharacter extends FlxSprite
 
 		#if MODS_ALLOWED
 		var path:String = Paths.modFolders(characterPath);
+		#if sys
 		if (!FileSystem.exists(path)) {
 			path = Paths.getSharedPath(characterPath);
 		}
@@ -64,7 +65,16 @@ class DialogueCharacter extends FlxSprite
 			path = Paths.getSharedPath('images/dialogue/' + DEFAULT_CHARACTER + '.json');
 		}
 		rawJson = File.getContent(path);
+		#else
+		if (!Assets.exists(path, TEXT)) {
+			path = Paths.getSharedPath(characterPath);
+		}
 
+		if(!Assets.exists(path, TEXT)) {
+			path = Paths.getSharedPath('images/dialogue/' + DEFAULT_CHARACTER + '.json');
+		}
+		rawJson = Assets.getText(path);
+		#end
 		#else
 		var path:String = Paths.getSharedPath(characterPath);
 		rawJson = Assets.getText(path);

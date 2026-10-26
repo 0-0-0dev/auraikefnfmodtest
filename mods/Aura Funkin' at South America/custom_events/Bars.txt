@@ -1,0 +1,7 @@
+value 1 = bar type, amount (ex: wide,90)
+type = wide or phone
+amount = any positive number
+
+
+value 2 = time to move
+optional, leave blank for instant

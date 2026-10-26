@@ -1,0 +1,6 @@
+Sets Camera Zoom
+
+Value 1: Cam zoom
+
+Value 2: seconds,easing
+if u type only seconds it automaticly does sineinout

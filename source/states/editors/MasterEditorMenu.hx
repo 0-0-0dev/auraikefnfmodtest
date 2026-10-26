@@ -1,3 +1,4 @@
+#if !html5
 package states.editors;
 
 import backend.WeekData;
@@ -166,3 +167,4 @@ class MasterEditorMenu extends MusicBeatState
 	}
 	#end
 }
+#endif

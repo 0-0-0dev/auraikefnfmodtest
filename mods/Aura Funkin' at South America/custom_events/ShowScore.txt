@@ -1,0 +1,2 @@
+shows the score, PLAY AFTER HIDE SCORE EVENT!
+event made by smiley0510 (used script and turned it into event)

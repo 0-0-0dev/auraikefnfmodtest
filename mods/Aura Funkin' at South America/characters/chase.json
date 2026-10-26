@@ -1,0 +1,71 @@
+{
+	"animations": [
+		{
+			"offsets": [-16, -304],
+			"loop": false,
+			"fps": 18,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "left"
+		},
+		{
+			"offsets": [-17, -304],
+			"loop": false,
+			"fps": 18,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right"
+		},
+		{
+			"offsets": [-15, -303],
+			"loop": false,
+			"fps": 18,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "down"
+		},
+		{
+			"offsets": [-15, -304],
+			"loop": false,
+			"fps": 18,
+			"anim": "singUP",
+			"indices": [],
+			"name": "up"
+		},
+		{
+			"offsets": [-14, -304],
+			"loop": false,
+			"fps": 14,
+			"anim": "transition",
+			"indices": [],
+			"name": "transition"
+		},
+		{
+			"loop": false,
+			"offsets": [-14, -304],
+			"anim": "idle",
+			"fps": 12,
+			"name": "idle",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [-14, -304],
+			"anim": "standing",
+			"fps": 14,
+			"name": "transition",
+			"indices": [5]
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/chase",
+	"position": [0, 0],
+	"healthicon": "chase",
+	"flip_x": false,
+	"healthbar_colors": [216, 85, 142],
+	"camera_position": [0, 400],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": false
+}

@@ -283,7 +283,11 @@ class AlphaCharacter extends FlxSprite
 	{
 		var path:String = Paths.getPath('images/$request.json');
 		#if MODS_ALLOWED
+		#if sys
 		if(!FileSystem.exists(path))
+		#else
+		if(!Assets.exists(path, TEXT))
+		#end
 		#else
 		if(!Assets.exists(path, TEXT))
 		#end
@@ -293,7 +297,11 @@ class AlphaCharacter extends FlxSprite
 		try
 		{
 			#if MODS_ALLOWED
+			#if sys
 			var data:Dynamic = Json.parse(File.getContent(path));
+			#else
+			var data:Dynamic = Json.parse(Assets.getText(path));
+			#end
 			#else
 			var data:Dynamic = Json.parse(Assets.getText(path));
 			#end

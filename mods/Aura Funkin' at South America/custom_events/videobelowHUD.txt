@@ -1,0 +1,5 @@
+value1:
+Name video
+
+value2:
+put "Game","HUD" or "Other"

@@ -1,0 +1,12 @@
+Sets the camera's target mid-section 
+(Resets on new section)
+Value 1: Camera Target (Not case sensitive)
+		 B = Boyfriend
+		 D = Dad
+		 G = Girlfriend (Thanks to DotZZ)
+		 (dont type anything)  = Reset (Thanks to YB)
+                 M = Middle
+Value 2: Seconds,Easing
+Event by Saltyboii#2461 on Discord
+Girlfriend Support by DotZZ on Gamebanana
+Edited Event by YB lol

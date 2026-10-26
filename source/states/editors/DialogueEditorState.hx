@@ -1,3 +1,4 @@
+#if !html5
 package states.editors;
 
 import openfl.net.FileReference;
@@ -523,3 +524,4 @@ class DialogueEditorState extends MusicBeatState implements PsychUIEventHandler.
 		FlxG.log.error("Problem saving file");
 	}
 }
+#endif

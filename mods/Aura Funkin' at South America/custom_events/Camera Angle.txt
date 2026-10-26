@@ -1,0 +1,4 @@
+Value 1 = Angle Amount
+Value 2 = Seconds,Easing
+
+event by yb

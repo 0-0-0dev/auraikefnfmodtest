@@ -111,6 +111,7 @@ class WeekData {
 		}
 
 		#if MODS_ALLOWED
+		#if sys
 		for (i in 0...directories.length) {
 			var directory:String = directories[i] + 'weeks/';
 			if(FileSystem.exists(directory)) {
@@ -134,6 +135,7 @@ class WeekData {
 				}
 			}
 		}
+		#end
 		#end
 	}
 
@@ -163,9 +165,15 @@ class WeekData {
 	private static function getWeekFile(path:String):WeekFile {
 		var rawJson:String = null;
 		#if MODS_ALLOWED
+		#if sys
 		if(FileSystem.exists(path)) {
 			rawJson = File.getContent(path);
 		}
+		#else
+		if(OpenFlAssets.exists(path)) {
+			rawJson = Assets.getText(path);
+		}
+		#end
 		#else
 		if(OpenFlAssets.exists(path)) {
 			rawJson = Assets.getText(path);

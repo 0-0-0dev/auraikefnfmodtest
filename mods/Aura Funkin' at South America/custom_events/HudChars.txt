@@ -1,0 +1,15 @@
+Value1: on
+Value2:
+= both bf and dad go offscreen
+
+Value1:
+Value2: bf
+= boyfriend tweens back in
+
+Value1:
+Value2: dad
+= dad tweens back in
+
+Value1: off
+Value2:
+= reset everything

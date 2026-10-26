@@ -1,0 +1,4 @@
+value 1 = sound to play
+value 2 = tag (optional)
+
+leave value 2 blank to use value 1 as tag

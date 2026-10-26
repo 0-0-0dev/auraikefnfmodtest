@@ -3,8 +3,12 @@ package states;
 import flixel.FlxObject;
 import flixel.effects.FlxFlicker;
 import lime.app.Application;
+#if !html5
 import states.editors.MasterEditorMenu;
+#end
+#if !html5
 import options.OptionsState;
+#end
 
 enum MainMenuColumn {
 	LEFT;
@@ -28,6 +32,7 @@ class MainMenuState extends MusicBeatState
 		'story_mode',
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
+		#if !html5 'options', #end
 		'credits'
 	];
 
@@ -310,6 +315,7 @@ class MainMenuState extends MusicBeatState
 
 						case 'credits':
 							MusicBeatState.switchState(new CreditsState());
+						#if !html5
 						case 'options':
 							MusicBeatState.switchState(new OptionsState());
 							OptionsState.onPlayState = false;
@@ -319,6 +325,7 @@ class MainMenuState extends MusicBeatState
 								PlayState.SONG.splashSkin = null;
 								PlayState.stageUI = 'normal';
 							}
+						#end
 						case 'donate':
 							CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 							selectedSomethin = false;

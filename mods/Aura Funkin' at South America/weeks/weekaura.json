@@ -1,0 +1,27 @@
+{
+	"songs": [
+		[
+			"aura-battle",
+			"freeplay-icon",
+			[
+				255,
+				0,
+				93
+			]
+		]
+	],
+	"hiddenUntilUnlocked": false,
+	"hideFreeplay": false,
+	"weekBackground": "aura",
+        "difficulties": "aura,",
+	"weekCharacters": [
+		"",
+		"",
+		""
+	],
+	"storyName": "CLOCK IT!",
+	"weekName": "aura",
+	"hideStoryMode": true,
+	"weekBefore": "tutorial",
+	"startUnlocked": true
+}

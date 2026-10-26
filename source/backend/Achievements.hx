@@ -231,10 +231,60 @@ class Achievements {
 	inline static function loadAchievementJson(path:String, addMods:Bool = true)
 	{
 		var retVal:Array<Dynamic> = null;
+		#if sys
 		if(FileSystem.exists(path)) {
 			try {
 				var rawJson:String = File.getContent(path).trim();
 				if(rawJson != null && rawJson.length > 0) retVal = tjson.TJSON.parse(rawJson); //Json.parse('{"achievements": $rawJson}').achievements;
+				
+				if(addMods && retVal != null)
+				{
+					for (i in 0...retVal.length)
+					{
+						var achieve:Dynamic = retVal[i];
+						if(achieve == null)
+						{
+							var errorTitle = 'Mod name: ' + Mods.currentModDirectory != null ? Mods.currentModDirectory : "None";
+							var errorMsg = 'Achievement #${i+1} is invalid.';
+							#if windows
+							lime.app.Application.current.window.alert(errorMsg, errorTitle);
+							#end
+							trace('$errorTitle - $errorMsg');
+							continue;
+						}
+					}
+				}
+			} catch(e:Dynamic) {
+				trace('Error in achievement file $path: $e');
+			}
+		}
+		#else
+		if(Assets.exists(path)) {
+			try {
+				var rawJson:String = Assets.getText(path).trim();
+				if(rawJson != null && rawJson.length > 0) retVal = tjson.TJSON.parse(rawJson);
+				if(addMods && retVal != null)
+				{
+					for (i in 0...retVal.length)
+					{
+						var achieve:Dynamic = retVal[i];
+						if(achieve == null)
+						{
+							var errorTitle = 'Mod name: ' + Mods.currentModDirectory != null ? Mods.currentModDirectory : "None";
+							var errorMsg = 'Achievement #${i+1} is invalid.';
+							#if windows
+							lime.app.Application.current.window.alert(errorMsg, errorTitle);
+							#end
+							trace('$errorTitle - $errorMsg');
+							continue;
+						}
+					}
+				}
+			} catch(e:Dynamic) {
+				trace('Error in achievement file $path: $e');
+			}
+		}
+		#end
 				
 				if(addMods && retVal != null)
 				{

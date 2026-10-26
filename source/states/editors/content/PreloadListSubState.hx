@@ -1,3 +1,4 @@
+#if !html5
 package states.editors.content;
 
 import haxe.io.Path;
@@ -279,3 +280,4 @@ class PreloadListSubState extends MusicBeatSubstate implements PsychUIEvent
 		super.destroy();
 	}
 }
+#endif

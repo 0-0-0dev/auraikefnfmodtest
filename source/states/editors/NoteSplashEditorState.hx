@@ -1,3 +1,4 @@
+#if !html5
 package states.editors;
 
 import objects.Note;
@@ -982,3 +983,4 @@ class NoteSplashEditorHelpSubState extends MusicBeatSubstate
             close();
     }
 }
+#endif

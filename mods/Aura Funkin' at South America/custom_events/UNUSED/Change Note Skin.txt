@@ -1,0 +1,5 @@
+Value 1: 
+The exact name of your noteskin asset file (e.g., NOTE_assets_pixel or your custom image name found in mods/images/).
+
+Value 2: 
+Choose who the skin applies to:0 = Change Boyfriend's notes only.1 = Change the Opponent's notes only.2 = Change Both sides (Default if left blank)

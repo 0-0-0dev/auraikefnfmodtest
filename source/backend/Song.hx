@@ -146,11 +146,15 @@ class Song
 		_lastPath = Paths.json('$formattedFolder/$formattedSong');
 
 		#if MODS_ALLOWED
+		#if sys
 		if(FileSystem.exists(_lastPath))
 			rawData = File.getContent(_lastPath);
 		else
 		#end
 			rawData = Assets.getText(_lastPath);
+		#else
+			rawData = Assets.getText(_lastPath);
+		#end
 
 		return rawData != null ? parseJSON(rawData, jsonInput) : null;
 	}

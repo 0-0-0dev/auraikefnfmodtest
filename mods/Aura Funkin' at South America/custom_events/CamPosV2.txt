@@ -1,0 +1,16 @@
+Value1 = x,y
+Value2 = ease,time
+
+Example:
+
+Value 1 = 600,300
+Value 2 = SineInOut,2
+
+also you can type bf or dad or everything on code in Value1 and
+just type ease and seconds in value 2
+
+
+
+
+
+coded by yb yessss

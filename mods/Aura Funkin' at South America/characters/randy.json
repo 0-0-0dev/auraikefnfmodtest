@@ -1,0 +1,79 @@
+{
+	"animations": [
+		{
+			"offsets": [-14, -304],
+			"loop": false,
+			"fps": 14,
+			"anim": "idle",
+			"indices": [],
+			"name": "idle"
+		},
+		{
+			"offsets": [-14, -304],
+			"loop": false,
+			"fps": 18,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "left"
+		},
+		{
+			"offsets": [-14, -304],
+			"loop": false,
+			"fps": 18,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right"
+		},
+		{
+			"offsets": [-14, -304],
+			"loop": false,
+			"fps": 18,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "down"
+		},
+		{
+			"offsets": [-14, -304],
+			"loop": false,
+			"fps": 18,
+			"anim": "singUP",
+			"indices": [],
+			"name": "up"
+		},
+		{
+			"loop": false,
+			"offsets": [-14, -304],
+			"anim": "speak",
+			"fps": 14,
+			"name": "speak",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-14, -304],
+			"anim": "serious",
+			"fps": 14,
+			"name": "serious",
+			"indices": []
+		},
+		{
+			"offsets": [-14, -304],
+			"loop": true,
+			"fps": 14,
+			"anim": "standing",
+			"indices": [],
+			"name": "standing"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/randy",
+	"position": [-80, -100],
+	"healthicon": "ike",
+	"flip_x": false,
+	"healthbar_colors": [216, 85, 142],
+	"camera_position": [-200, 400],
+	"sing_duration": 4,
+	"scale": 0.9,
+	"_editor_isPlayer": false
+}

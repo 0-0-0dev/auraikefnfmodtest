@@ -1,3 +1,4 @@
+#if !html5
 package states.editors;
 
 import openfl.net.FileReference;
@@ -379,3 +380,5 @@ class MenuCharacterEditorState extends MusicBeatState implements PsychUIEventHan
 		FlxG.log.error("Problem saving file");
 	}
 }
+
+#endif

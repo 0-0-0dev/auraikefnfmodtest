@@ -1,3 +1,4 @@
+#if !html5
 package states.editors.content;
 
 import haxe.format.JsonPrinter;
@@ -198,3 +199,4 @@ class PsychJsonPrinter extends JsonPrinter
 		}
 	}
 }
+#endif

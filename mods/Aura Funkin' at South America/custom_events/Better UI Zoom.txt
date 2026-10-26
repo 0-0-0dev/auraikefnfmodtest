@@ -1,0 +1,10 @@
+Value 1 = Set or change zoom, and Easing
+Use - or + for change, only number for set. Easing optional
+
+Value 2 = Ease in, Hold, Ease out.
+Ease in Required. Hold optional. Ease out optional.
+If using Hold, Ease out is Required.
+Easing out sets value back to previous value.
+Set Ease in or Ease out to 0 for instant zoom in/out
+
+Default zoom = 1

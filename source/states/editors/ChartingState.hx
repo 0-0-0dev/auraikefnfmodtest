@@ -1,3 +1,4 @@
+#if !html5
 package states.editors;
 
 import flixel.FlxSubState;
@@ -5296,3 +5297,5 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		#end
 	}
 }
+
+#endif

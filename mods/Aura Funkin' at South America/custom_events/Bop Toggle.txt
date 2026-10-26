@@ -1,0 +1,3 @@
+turns on or off the screen hud bopping every section epic
+
+value 1 = on/off

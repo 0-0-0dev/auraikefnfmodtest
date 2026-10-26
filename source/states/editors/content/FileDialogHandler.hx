@@ -1,3 +1,4 @@
+#if !html5
 package states.editors.content;
 
 import openfl.net.FileReference;
@@ -6,7 +7,10 @@ import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 
 import haxe.Exception;
+import haxe.io.Path;
+#if sys
 import sys.io.File;
+#end
 import lime.ui.*;
 
 import flixel.FlxBasic;
@@ -103,7 +107,11 @@ class FileDialogHandler extends FlxBasic
 	{
 		@:privateAccess
 		this.path = _fileRef.__path;
+		#if sys
 		this.data = File.getContent(this.path);
+		#else
+		this.data = _fileRef.data.readUTFBytes(_fileRef.data.length);
+		#end
 		this.completed = true;
 		trace('Loaded file from: $path');
 
@@ -243,3 +251,4 @@ class FileReferenceCustom extends FileReference
 		return false;
 	}
 }
+#endif

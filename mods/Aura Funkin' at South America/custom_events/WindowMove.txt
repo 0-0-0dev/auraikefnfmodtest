@@ -1,0 +1,9 @@
+value 1 = X,Y
+Set X or Y to ~
+to use current position
+
+use + or - to add to position
+
+value 2 = length, easing
+Set length to 0 for instant move
+Easing is optional

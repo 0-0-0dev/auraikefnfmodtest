@@ -1,0 +1,3 @@
+Value 1: zoom
+
+Value 2: if blank, it will smoothly zoom regularly

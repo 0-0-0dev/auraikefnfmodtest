@@ -1,3 +1,4 @@
+#if !html5
 package states.editors;
 
 import backend.StageData;
@@ -2398,3 +2399,5 @@ class StageEditorAnimationSubstate extends MusicBeatSubstate {
 		}
 	}
 }
+
+#endif

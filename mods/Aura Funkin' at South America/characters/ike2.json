@@ -1,0 +1,95 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [-90, -373],
+			"anim": "singLEFT",
+			"fps": 18,
+			"name": "left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-89, -374],
+			"anim": "singRIGHT",
+			"fps": 18,
+			"name": "right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-87, -373],
+			"anim": "singDOWN",
+			"fps": 18,
+			"name": "down",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-86, -373],
+			"anim": "singUP",
+			"fps": 18,
+			"name": "up",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-90, -372],
+			"anim": "cringe",
+			"fps": 14,
+			"name": "cringe",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-90, -372],
+			"anim": "angry-look",
+			"fps": 14,
+			"name": "angry-look",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [-90, -372],
+			"anim": "idle",
+			"fps": 14,
+			"name": "idle",
+			"indices": []
+		},
+		{
+			"offsets": [-90, -372],
+			"loop": true,
+			"fps": 14,
+			"anim": "cringe-idle",
+			"indices": [54],
+			"name": "cringe"
+		},
+		{
+			"offsets": [-90, -372],
+			"loop": true,
+			"fps": 14,
+			"anim": "standing",
+			"indices": [],
+			"name": "standing"
+		},
+		{
+			"offsets": [-90, -372],
+			"loop": false,
+			"fps": 12,
+			"anim": "transition",
+			"indices": [],
+			"name": "transition"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/ike2",
+	"position": [60, 0],
+	"healthicon": "ike",
+	"flip_x": true,
+	"healthbar_colors": [216, 85, 142],
+	"camera_position": [-16, 430],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": true
+}

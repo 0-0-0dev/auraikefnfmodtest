@@ -1,0 +1,9 @@
+event that puts the video on
+the screen little transparent
+so its fire basically twiddlefinger yaa
+video is gonna loop so use value 2 to delete the video
+whenever u want
+
+value 1 = video name
+vallue 2 = 
+only type "yes" if u want fire to disappear on value 2

@@ -1,0 +1,7 @@
+Value 1: text
+
+Value 2: B \ D \ G
+
+B - Boyfriend
+D - Dad
+G - Girlfriend         

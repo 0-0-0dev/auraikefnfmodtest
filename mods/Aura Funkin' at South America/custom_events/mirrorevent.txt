@@ -1,0 +1,7 @@
+nug = focus camera to nugget
+
+rotnug = focus camera to rotten nugget
+
+keep empty if u want to focus camera to evil max or max
+
+middle = is in middle lol

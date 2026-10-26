@@ -1,0 +1,108 @@
+{
+	"camera_boyfriend": [
+		-150,
+		4
+	],
+	"_editorMeta": {
+		"boyfriend": "ike",
+		"gf": "randy",
+		"dad": "chase"
+	},
+	"preload": {
+		"images/stage_light": 2,
+		"images/stagecurtains": 2,
+		"images/stagefront": 3,
+		"images/stageback": 3
+	},
+	"girlfriend": [
+		384,
+		117
+	],
+	"stageUI": "",
+	"boyfriend": [
+		738,
+		99
+	],
+	"camera_girlfriend": [
+		250,
+		-22
+	],
+	"defaultZoom": 0.75,
+	"objects": [
+		{
+			"x": -338,
+			"y": 95,
+			"scale": [
+				1.2,
+				1.2
+			],
+			"image": "school",
+			"flipX": false,
+			"filters": 3,
+			"color": "FFFFFF",
+			"angle": 0,
+			"name": "sprite1",
+			"antialiasing": true,
+			"flipY": false,
+			"scroll": [
+				1,
+				1
+			],
+			"alpha": 1,
+			"type": "sprite"
+		},
+		{
+			"x": -478,
+			"y": 374,
+			"scale": [
+				0.8,
+				0.8
+			],
+			"image": "characters",
+			"flipX": false,
+			"filters": 3,
+			"color": "FFFFFF",
+			"angle": 0,
+			"name": "sprite2",
+			"firstAnimation": "idle",
+			"antialiasing": true,
+			"flipY": false,
+			"scroll": [
+				1,
+				1
+			],
+			"alpha": 1,
+			"animations": [
+				{
+					"loop": true,
+					"offsets": null,
+					"anim": "idle",
+					"fps": 7,
+					"name": "idle",
+					"indices": []
+				}
+			],
+			"type": "animatedSprite"
+		},
+		{
+			"type": "gf"
+		},
+		{
+			"type": "dad"
+		},
+		{
+			"type": "boyfriend"
+		}
+	],
+	"camera_speed": 1.5,
+	"directory": "week1",
+	"opponent": [
+		63,
+		100
+	],
+	"camera_opponent": [
+		150,
+		2
+	],
+	"hide_girlfriend": false
+}

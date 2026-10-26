@@ -80,12 +80,13 @@ class StageData {
 		{
 			var path:String = Paths.getPath('stages/' + stage + '.json', TEXT, null, true);
 			#if MODS_ALLOWED
+			#if sys
 			if(FileSystem.exists(path))
 				return cast tjson.TJSON.parse(File.getContent(path));
-			#else
+			#end
+			#end
 			if(Assets.exists(path))
 				return cast tjson.TJSON.parse(Assets.getText(path));
-			#end
 		}
 		return dummy();
 	}

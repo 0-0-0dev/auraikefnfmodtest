@@ -1,3 +1,4 @@
+#if !html5
 package states.editors;
 
 import backend.WeekData;
@@ -770,3 +771,5 @@ class WeekEditorFreeplayState extends MusicBeatState implements PsychUIEventHand
 		super.update(elapsed);
 	}
 }
+
+#endif

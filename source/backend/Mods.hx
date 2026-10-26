@@ -1,6 +1,7 @@
 package backend;
 
 import openfl.utils.Assets;
+import openfl.utils.Assets as OpenFlAssets;
 
 import haxe.Json;
 
@@ -51,6 +52,7 @@ class Mods
 	{
 		var list:Array<String> = [];
 		#if MODS_ALLOWED
+		#if sys
 		var modsFolder:String = Paths.mods();
 		if(FileSystem.exists(modsFolder)) {
 			for (folder in FileSystem.readDirectory(modsFolder))
@@ -60,6 +62,7 @@ class Mods
 					list.push(folder);
 			}
 		}
+		#end
 		#end
 		return list;
 	}
@@ -94,6 +97,7 @@ class Mods
 	inline public static function directoriesWithFile(path:String, fileToFind:String, mods:Bool = true)
 	{
 		var foldersToCheck:Array<String> = [];
+		#if sys
 		//Main folder
 		if(FileSystem.exists(path + fileToFind))
 			foldersToCheck.push(path + fileToFind);
@@ -105,6 +109,7 @@ class Mods
 			if(!foldersToCheck.contains(pth) && FileSystem.exists(pth))
 				foldersToCheck.push(pth);
 		}
+		#end
 
 		#if MODS_ALLOWED
 		if(mods)
@@ -113,18 +118,30 @@ class Mods
 			for(mod in Mods.getGlobalMods())
 			{
 				var folder:String = Paths.mods(mod + '/' + fileToFind);
+				#if sys
 				if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
+				#elseif html5
+				if(OpenFlAssets.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
+				#end
 			}
 
 			// Then "PsychEngine/mods/" main folder
 			var folder:String = Paths.mods(fileToFind);
+			#if sys
 			if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(Paths.mods(fileToFind));
+			#elseif html5
+			if(OpenFlAssets.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(Paths.mods(fileToFind));
+			#end
 
 			// And lastly, the loaded mod's folder
 			if(Mods.currentModDirectory != null && Mods.currentModDirectory.length > 0)
 			{
 				var folder:String = Paths.mods(Mods.currentModDirectory + '/' + fileToFind);
+				#if sys
 				if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
+				#elseif html5
+				if(OpenFlAssets.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
+				#end
 			}
 		}
 		#end
@@ -137,18 +154,25 @@ class Mods
 		if(folder == null) folder = Mods.currentModDirectory;
 
 		var path = Paths.mods(folder + '/pack.json');
+		#if sys
 		if(FileSystem.exists(path)) {
 			try {
-				#if sys
 				var rawJson:String = File.getContent(path);
-				#else
-				var rawJson:String = Assets.getText(path);
-				#end
 				if(rawJson != null && rawJson.length > 0) return tjson.TJSON.parse(rawJson);
 			} catch(e:Dynamic) {
 				trace(e);
 			}
 		}
+		#else
+		if(OpenFlAssets.exists(path)) {
+			try {
+				var rawJson:String = Assets.getText(path);
+				if(rawJson != null && rawJson.length > 0) return tjson.TJSON.parse(rawJson);
+			} catch(e:Dynamic) {
+				trace(e);
+			}
+		}
+		#end
 		#end
 		return null;
 	}
@@ -182,6 +206,7 @@ class Mods
 	private static function updateModList()
 	{
 		#if MODS_ALLOWED
+		#if sys
 		// Find all that are already ordered
 		var list:Array<Array<Dynamic>> = [];
 		var added:Array<String> = [];
@@ -223,6 +248,7 @@ class Mods
 		File.saveContent('modsList.txt', fileStr);
 		updatedOnState = true;
 		//trace('Saved modsList.txt');
+		#end
 		#end
 	}
 

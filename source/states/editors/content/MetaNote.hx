@@ -1,3 +1,4 @@
+#if !html5
 package states.editors.content;
 
 import objects.Note;
@@ -191,3 +192,4 @@ class EventMetaNote extends MetaNote
 		super.destroy();
 	}
 }
+#endif

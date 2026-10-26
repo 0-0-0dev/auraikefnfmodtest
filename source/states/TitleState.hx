@@ -98,7 +98,9 @@ class TitleState extends MusicBeatState
 		#if FREEPLAY
 		MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING
+		#if !html5
 		MusicBeatState.switchState(new ChartingState());
+		#end
 		#else
 		if(FlxG.save.data.flashing == null && !FlashingState.leftState)
 		{

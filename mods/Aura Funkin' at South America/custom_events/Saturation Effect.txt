@@ -1,0 +1,4 @@
+Value 1 = Saturation
+Value 2 = Seconds,Easing
+
+coded by yb

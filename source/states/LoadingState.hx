@@ -1,7 +1,9 @@
 package states;
 
 import lime.app.Future;
+#if sys
 import sys.thread.FixedThreadPool;
+#end
 import haxe.Json;
 import lime.utils.Assets;
 import openfl.display.BitmapData;
@@ -13,8 +15,10 @@ import flixel.FlxState;
 
 import flash.media.Sound;
 
+#if sys
 import sys.thread.Thread;
 import sys.thread.Mutex;
+#end
 
 import backend.Song;
 import backend.StageData;
@@ -43,8 +47,10 @@ class LoadingState extends MusicBeatState
 
 	static var originalBitmapKeys:Map<String, String> = [];
 	static var requestedBitmaps:Map<String, BitmapData> = [];
+	#if sys
 	static var mutex:Mutex;
 	static var threadPool:FixedThreadPool = null;
+	#end
 
 	function new(target:FlxState, stopMusic:Bool)
 	{
@@ -336,9 +342,11 @@ class LoadingState extends MusicBeatState
 		isIntrusive = false;
 
 		FlxTransitionableState.skipNextTransIn = true;
+		#if sys
 		if (threadPool != null) threadPool.shutdown(); // kill all workers safely
 		threadPool = null;
 		mutex = null;
+		#end
 	}
 
 	public static function checkLoaded():Bool
@@ -383,6 +391,7 @@ class LoadingState extends MusicBeatState
 		if (stopMusic && FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
+		#if sys
 		while(true)
 		{
 			if(checkLoaded())
@@ -392,6 +401,7 @@ class LoadingState extends MusicBeatState
 			}
 			else Sys.sleep(0.001);
 		}
+		#end
 		return target;
 	}
 
@@ -410,6 +420,7 @@ class LoadingState extends MusicBeatState
 	static var dontPreloadDefaultVoices:Bool = false;
 	static function _startPool()
 	{
+		#if sys
 		#if MULTITHREADED_LOADING
 		// Due to the Main thread and Discord thread, we decrease it by 2.
 		var threadCount:Int = Std.int(Math.max(1, getCPUThreadsCount() - #if DISCORD_ALLOWED 2 #else 1 #end));
@@ -417,6 +428,7 @@ class LoadingState extends MusicBeatState
 		var threadCount:Int = 1;
 		#end
 		threadPool = new FixedThreadPool(threadCount);
+		#end
 	}
 
 	public static function prepareToSong()
@@ -576,18 +588,28 @@ class LoadingState extends MusicBeatState
 			if (player2 != player1)
 			{
 				threadsMax++;
+				#if sys
 				threadPool.run(() -> {
 					try { preloadCharacter(player2, prefixVocals); } catch (e:Dynamic) {}
 					completedThread();
 				});
+				#else
+				try { preloadCharacter(player2, prefixVocals); } catch (e:Dynamic) {}
+				completedThread();
+				#end
 			}
 			if (!stageData.hide_girlfriend && gfVersion != player2 && gfVersion != player1)
 			{
 				threadsMax++;
+				#if sys
 				threadPool.run(() -> {
 					try { preloadCharacter(gfVersion); } catch (e:Dynamic) {}
 					completedThread();
 				});
+				#else
+				try { preloadCharacter(gfVersion); } catch (e:Dynamic) {}
+				completedThread();
+				#end
 			}
 
 			if(threadsCompleted == threadsMax)
@@ -617,6 +639,7 @@ class LoadingState extends MusicBeatState
 
 	static function clearInvalidFrom(arr:Array<String>, prefix:String, ext:String, type:AssetType, ?parentFolder:String = null)
 	{
+		#if sys
 		for (folder in arr.copy())
 		{
 			var nam:String = folder.trim();
@@ -637,6 +660,7 @@ class LoadingState extends MusicBeatState
 				//trace('Folder detected! ' + folder);
 			}
 		}
+		#end
 
 		var i:Int = 0;
 		while(i < arr.length)
@@ -659,7 +683,9 @@ class LoadingState extends MusicBeatState
 
 	public static function startThreads()
 	{
+		#if sys
 		mutex = new Mutex();
+		#end
 		loadMax = imagesToPrepare.length + soundsToPrepare.length + musicToPrepare.length + songsToPrepare.length;
 		loaded = 0;
 
@@ -670,16 +696,25 @@ class LoadingState extends MusicBeatState
 	static function _threadFunc()
 	{
 		_startPool();
+		#if sys
 		for (sound in soundsToPrepare) initThread(() -> preloadSound('sounds/$sound'), 'sound $sound');
 		for (music in musicToPrepare) initThread(() -> preloadSound('music/$music'), 'music $music');
 		for (song in songsToPrepare) initThread(() -> preloadSound(song, 'songs', true, false), 'song $song');
 
 		// for images, they get to have their own thread
 		for (image in imagesToPrepare) initThread(() -> preloadGraphic(image), 'image $image');
+		#else
+		for (sound in soundsToPrepare) preloadSound('sounds/$sound');
+		for (music in musicToPrepare) preloadSound('music/$music');
+		for (song in songsToPrepare) preloadSound(song, 'songs', true, false);
+		for (image in imagesToPrepare) preloadGraphic(image);
+		loaded = loadMax;
+		#end
 	}
 
 	static function initThread(func:Void->Dynamic, traceData:String)
 	{
+		#if sys
 		// trace('scheduled $func in threadPool');
 		#if debug
 		var threadSchedule = Sys.time();
@@ -705,6 +740,10 @@ class LoadingState extends MusicBeatState
 			loaded++;
 			// mutex.release();
 		});
+		#else
+		func();
+		loaded++;
+		#end
 	}
 
 	inline private static function preloadCharacter(char:String, ?prefixVocals:String)
@@ -776,9 +815,13 @@ class LoadingState extends MusicBeatState
 			if (#if sys FileSystem.exists(file) || #end OpenFlAssets.exists(file, SOUND))
 			{
 				var sound:Sound = #if sys Sound.fromFile(file) #else OpenFlAssets.getSound(file, false) #end;
+				#if sys
 				mutex.acquire();
 				Paths.currentTrackedSounds.set(file, sound);
 				mutex.release();
+				#else
+				Paths.currentTrackedSounds.set(file, sound);
+				#end
 			}
 			else if (beepOnNull)
 			{
@@ -787,9 +830,13 @@ class LoadingState extends MusicBeatState
 				return FlxAssets.getSound('flixel/sounds/beep');
 			}
 		}
+		#if sys
 		mutex.acquire();
 		Paths.localTrackedAssets.push(file);
 		mutex.release();
+		#else
+		Paths.localTrackedAssets.push(file);
+		#end
 
 		return Paths.currentTrackedSounds.get(file);
 	}
@@ -813,10 +860,15 @@ class LoadingState extends MusicBeatState
 					var bitmap:BitmapData = OpenFlAssets.getBitmapData(file, false);
 					#end
 
+					#if sys
 					mutex.acquire();
 					requestedBitmaps.set(file, bitmap);
 					originalBitmapKeys.set(file, requestKey);
 					mutex.release();
+					#else
+					requestedBitmaps.set(file, bitmap);
+					originalBitmapKeys.set(file, requestKey);
+					#end
 					return bitmap;
 				}
 				else trace('no such image $key exists');

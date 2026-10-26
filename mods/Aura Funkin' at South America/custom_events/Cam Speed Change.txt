@@ -1,0 +1,5 @@
+Change The Camera Speed
+
+value 1 = Speed int
+
+value 2 = True to set normal speed 

@@ -1,0 +1,4 @@
+something like:
+['maze'] = function()
+
+MADE BY PF0R ON GAMEBANANA

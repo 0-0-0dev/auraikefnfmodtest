@@ -1,3 +1,4 @@
+#if !html5
 package states.editors.content;
 
 import flixel.addons.display.FlxGridOverlay;
@@ -133,3 +134,4 @@ class ChartingGridSprite extends FlxSprite
 		updateStripes();
 	}
 }
+#endif

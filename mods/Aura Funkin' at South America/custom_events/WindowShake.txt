@@ -1,0 +1,6 @@
+value 1 = shake intensity
+
+value 2 = length, fade time
+fade time optional
+
+window will go back to original position after shake is over

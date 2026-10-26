@@ -1,3 +1,4 @@
+#if !html5
 package states.editors.content;
 
 import backend.Song;
@@ -903,3 +904,5 @@ class EditorPlayState extends MusicBeatSubstate
 	function updateScore()
 		scoreTxt.text = 'Hits: $songHits | Misses: $songMisses';
 }
+
+#endif

@@ -1,3 +1,4 @@
+#if !html5
 package states.editors;
 
 import flixel.graphics.FlxGraphic;
@@ -1312,3 +1313,4 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 		}
 	}
 }
+#endif

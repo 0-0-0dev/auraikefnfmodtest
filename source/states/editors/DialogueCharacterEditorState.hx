@@ -1,3 +1,4 @@
+#if !html5
 package states.editors;
 
 import openfl.net.FileReference;
@@ -748,3 +749,4 @@ class DialogueCharacterEditorState extends MusicBeatState implements PsychUIEven
 		return text;
 	}
 }
+#endif

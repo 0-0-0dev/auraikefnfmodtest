@@ -1,0 +1,7 @@
+value 1 = stage sprite name
+value 2 = transparency,speed
+like this
+value 2 = 0,3
+also you can still do only transparency like
+value 2 = 0 or 0.5 or 1
+and it basically works instantly without fade
